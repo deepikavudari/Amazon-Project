@@ -51,3 +51,11 @@ products.forEach((product) => {
 
   productGrid.innerHTML += html;
 });
+
+const addtoCart = document.querySelectorAll('.add-to-cart-button button-primary');
+
+addtoCart.forEach((btn)=>{
+    btn.addEventListener('click',()=>{
+        
+    })
+})
