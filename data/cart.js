@@ -1,4 +1,4 @@
-export const cart = [];
+export const cart = JSON.parse(localStorage.getItem('cart')) || [];
 
 let timeoutId;
 function dispMessage(id) {
@@ -12,12 +12,13 @@ function dispMessage(id) {
 
 
 export function addtocart(productId){
+    console.log(cart);
     dispMessage(productId);
     let added = false;
     const quantitySelector = document.querySelector(`.js-quantity-selector-${productId}`);
     const quan = Number(quantitySelector.value);
     for (let i = 0; i < cart.length; i++) {
-      if (cart[i].id === productId) {
+      if (cart[i].productId === productId) {
         cart[i].quantity+=quan;
         added = true;
         break;
@@ -36,6 +37,7 @@ export function addtocart(productId){
             productId,
             quantity: quan
       });
+      localStorage.setItem('cart',JSON.stringify(cart));
     }
 }
 
