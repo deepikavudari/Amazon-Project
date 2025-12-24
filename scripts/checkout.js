@@ -6,18 +6,16 @@ import { formatCurrency } from './utils/money.js';
 let checkout='';
 
 cart.forEach((cartItem)=>{
-    console.log(cartItem);
 const productId = cartItem.productId;
 let index = 0;
 for(let i =0;i<products.length;i++){
     if(products[i].id===productId){
-        console.log(products[i]);
         index = i;
         break;
     }
 }
 const html = 
-`          <div class="cart-item-container">
+`          <div class="cart-item-container js-cart-item-container-${productId}">
             <div class="delivery-date">
               Delivery date: Wednesday, June 15
             </div>
@@ -40,7 +38,7 @@ const html =
                   <span class="update-quantity-link link-primary">
                     Update
                   </span>
-                  <span class="delete-quantity-link link-primary">
+                  <span class="delete-quantity-link link-primary js-delete-link " data-product-id = "${cartItem.productId}">
                     Delete
                   </span>
                 </div>
@@ -92,7 +90,24 @@ const html =
           </div>
 `
 checkout += html;
+
 })
 
 const checkoutItem = document.querySelector('.order-summary');
 checkoutItem.innerHTML = checkout;
+
+document.querySelectorAll('.js-delete-link').forEach((link)=>{
+    link.addEventListener('click',()=>{
+        const id = link.dataset.productId;
+        let index;
+        for(let i = 0;i<cart.length;i++){
+            if(cart[i].d===id){
+                index = i;
+                break;
+            }
+        }
+        cart.splice(index,1);
+        localStorage.setItem('cart',JSON.stringify(cart));
+        document.querySelector(`.js-cart-item-container-${id}`).remove();
+    })
+})

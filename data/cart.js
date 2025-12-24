@@ -37,7 +37,7 @@ export function addtocart(productId){
             productId,
             quantity: quan
       });
-      localStorage.setItem('cart',JSON.stringify(cart));
     }
+        localStorage.setItem('cart',JSON.stringify(cart));
 }
 
