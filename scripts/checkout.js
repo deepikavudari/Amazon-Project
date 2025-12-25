@@ -33,16 +33,17 @@ cart.forEach((cartItem) => {
                 </div>
                 <div class="product-quantity">
                   <span>
-                    Quantity: <span class="quantity-label js-quantity-label-${cartItem.productId}">${
-                      cartItem.quantity
-                    }</span>
+                    Quantity: <span class="quantity-label js-quantity-label-${
+                      cartItem.productId
+                    }">${cartItem.quantity}</span>
                   </span>
                   <span class="update-quantity-link link-primary js-update-link" data-product-id = ${
                     cartItem.productId
                   }>
                     Update
                   </span>
-                  <span class="delete-quantity-link link-primary js-delete-link " data-product-id = "${
+                  <input class="quantity-input js-quantity-input-${cartItem.productId}"> <span class="save-quantity-link link-primary" data-product-id = "${cartItem.productId}">Save</span>
+                  <span class="delete-quantity-link link-primary js-delete-link" data-product-id = "${
                     cartItem.productId
                   }">
                     Delete
@@ -106,7 +107,7 @@ document.querySelectorAll(".js-delete-link").forEach((link) => {
     const id = link.dataset.productId;
     let index;
     for (let i = 0; i < cart.length; i++) {
-      if (cart[i].d === id) {
+      if (cart[i].productId === id) {
         index = i;
         break;
       }
@@ -119,8 +120,8 @@ document.querySelectorAll(".js-delete-link").forEach((link) => {
 });
 
 function updateCartQuantity() {
-    const checkoutNumber = document.querySelector(".return-to-home-link");
-  checkoutNumber.innerHTML = '';
+  const checkoutNumber = document.querySelector(".return-to-home-link");
+  checkoutNumber.innerHTML = "";
   let totalQuantity = 0;
   cart.forEach((cartItem) => {
     totalQuantity += Number(cartItem.quantity);
@@ -132,29 +133,33 @@ function updateCartQuantity() {
 document.querySelectorAll(".js-update-link").forEach((link) => {
   const id = link.dataset.productId;
   link.addEventListener("click", () => {
-    if (link.querySelector(".updated-quantity")) return;
-
-    link.innerHTML = `<input type="number" class="updated-quantity">`;
-    document.querySelector(".updated-quantity").addEventListener("keydown", (event) => {
-        console.log(event.key);
-      if (event.key !== "Enter") return;
-      if (event.key === "Enter") {
-        const updatedQuantity =Number(
-          document.querySelector(".updated-quantity").value);
-          if(updatedQuantity>0){
-        cart.forEach((cartItem) => {
-          if (cartItem.productId === id) {
-            cartItem.quantity = updatedQuantity;
-            localStorage.setItem("cart", JSON.stringify(cart));
-            const htmlpage = document.querySelector(`.js-quantity-label-${id}`);
-            htmlpage.innerHTML = cartItem.quantity;
-          }
-                link.innerHTML = 'Update';
-        });
-
-        updateCartQuantity();
-    }
-      }
-    });
+    const cardContainer = document.querySelector(
+      `.js-cart-item-container-${id}`);
+    cardContainer.classList.add("is-editing-quantity");
   });
 });
+
+const saveLink = document.querySelectorAll(".save-quantity-link");
+saveLink.forEach((link)=>{
+link.addEventListener('click',()=>{
+    const id = link.dataset.productId;
+    const newQuantity = document.querySelector(`.js-quantity-input-${id}`).value;
+    console.log(newQuantity);
+    if(Number(newQuantity)>0){
+        for(let i =0;i<cart.length;i++){
+            if(cart[i].productId===id){
+                cart[i].quantity = Number(newQuantity);
+                break;
+            }
+        }
+        localStorage.setItem('cart',JSON.stringify(cart));
+        updateCartQuantity();
+        const quantity = document.querySelector(`.js-quantity-label-${
+                      id
+                    }`);
+        quantity.innerHTML = Number(newQuantity);
+    }
+    const cardContainer = document.querySelector(      `.js-cart-item-container-${id}`);
+    cardContainer.classList.remove('is-editing-quantity');
+})
+})

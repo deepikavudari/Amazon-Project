@@ -2,6 +2,8 @@ import { cart, addtocart } from "../data/cart.js";
 import { products } from "../data/products.js";
 import { formatCurrency } from "./utils/money.js";
 
+updateCartQuantity();
+
 const productGrid = document.querySelector(".products-grid");
 products.forEach((product) => {
   const html = `<div class="product-container">
