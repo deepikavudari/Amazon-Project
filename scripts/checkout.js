@@ -4,6 +4,7 @@ import { formatCurrency } from "./utils/money.js";
 import { deliveryOptions } from "../data/deliveryOptions.js";
 import dayjs from "https://unpkg.com/supersimpledev@8.5.0/dayjs/esm/index.js";
 
+function renderOrderSummary(){
 updateCartQuantity();
 
 let checkout = "";
@@ -197,6 +198,9 @@ element.addEventListener('click',()=>{
     updateDeliveryOption(productId
       ,deliveryOptionId
     );
+    renderOrderSummary();
+})
+})
+}
 
-})
-})
+renderOrderSummary();
