@@ -1,4 +1,10 @@
-export const cart = JSON.parse(localStorage.getItem('cart')) || [];
+export let cart;
+
+loadFromStorage();
+
+export function loadFromStorage(){
+  cart = JSON.parse(localStorage.getItem('cart')) || [];
+}
 
 let timeoutId;
 function dispMessage(id) {
@@ -12,14 +18,13 @@ function dispMessage(id) {
 
 
 export function addtocart(productId){
-    console.log(cart);
-    dispMessage(productId);
+    //  dispMessage(productId);
     let added = false;
     const quantitySelector = document.querySelector(`.js-quantity-selector-${productId}`);
-    const quan = Number(quantitySelector.value);
+    //  const quan = Number(quantitySelector.value);
     for (let i = 0; i < cart.length; i++) {
       if (cart[i].productId === productId) {
-        cart[i].quantity+=quan;
+        cart[i].quantity+=1;
         added = true;
         break;
       }
@@ -35,7 +40,7 @@ export function addtocart(productId){
         cart.push({
             // productName: products[index].name,
             productId,
-            quantity: quan,
+            quantity: 1,
             deliveryOptionId : '1'
       });
     }
