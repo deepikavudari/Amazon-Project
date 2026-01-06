@@ -18,13 +18,13 @@ function dispMessage(id) {
 
 
 export function addtocart(productId){
-    //  dispMessage(productId);
+     dispMessage(productId);
     let added = false;
     const quantitySelector = document.querySelector(`.js-quantity-selector-${productId}`);
-    //  const quan = Number(quantitySelector.value);
+     const quan = Number(quantitySelector.value);
     for (let i = 0; i < cart.length; i++) {
       if (cart[i].productId === productId) {
-        cart[i].quantity+=1;
+        cart[i].quantity=quan;
         added = true;
         break;
       }
@@ -40,7 +40,7 @@ export function addtocart(productId){
         cart.push({
             // productName: products[index].name,
             productId,
-            quantity: 1,
+            quantity: quan,
             deliveryOptionId : '1'
       });
     }

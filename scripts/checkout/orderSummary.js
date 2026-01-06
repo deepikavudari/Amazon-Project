@@ -38,7 +38,7 @@ cart.forEach((cartItem) => {
   );
   const dateString = deliveryDate.format('dddd, MMMM D');
 
-  const html = `          <div class="cart-item-container js-cart-item-container-${productId}">
+  const html = `          <div class="cart-item-container js-cart-item-container js-cart-item-container-${productId}">
             <div class="delivery-date">
               Delivery date: ${dateString}
             </div>
