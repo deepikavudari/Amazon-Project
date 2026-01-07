@@ -1,16 +1,16 @@
 class Cart {
   cartItems;
   timeoutId;
-  localStorageKey;
+  #localStorageKey;
 
   constructor(localStorageKey) {
-    this.localStorageKey = localStorageKey;
-    this.loadFromStorage();
+    this.#localStorageKey = localStorageKey;
+    this.#loadFromStorage();
   }
 
-  loadFromStorage() {
+  #loadFromStorage() {
     this.cartItems =
-      JSON.parse(localStorage.getItem(this.localStorageKey)) || [];
+      JSON.parse(localStorage.getItem(this.#localStorageKey)) || [];
   }
 
   dispMessage(id) {
@@ -57,7 +57,7 @@ class Cart {
         deliveryOptionId: "1",
       });
     }
-    localStorage.setItem(this.localStorageKey, JSON.stringify(this.cartItems));
+    localStorage.setItem(this.#localStorageKey, JSON.stringify(this.cartItems));
   }
 
   updateDeliveryOption(productId, deliveryOptionId) {
@@ -66,7 +66,7 @@ class Cart {
         cartItem.deliveryOptionId = deliveryOptionId;
       }
     });
-    localStorage.setItem(this.localStorageKey, JSON.stringify(this.cartItems));
+    localStorage.setItem(this.#localStorageKey, JSON.stringify(this.cartItems));
   }
 }
 const cart = new Cart('cart-oop');
@@ -75,3 +75,5 @@ cart.addtocart("54e0eccd-8f36-462b-b68a-8182611d9add");
 
 console.log(cart);
 console.log(businessCart);
+
+
