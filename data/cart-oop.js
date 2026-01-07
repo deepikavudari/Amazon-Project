@@ -66,7 +66,6 @@ const businessCart = Cart('business-cart');
 
 cart.loadFromStorage();
 businessCart.loadFromStorage();
-console.log(cart);
-console.log(businessCart);
+
 
 
