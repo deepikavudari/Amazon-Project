@@ -1,10 +1,23 @@
 import { cart, addtocart } from "../data/cart.js";
-import { products , loadProducts } from "../data/products.js";
+import { products , loadProductsFetch } from "../data/products.js";
 import { formatCurrency } from "./utils/money.js";
 
-loadProducts(renderProductsGrid);
+loadProductsFetch().then(()=>{
+  renderProductsGrid();
+    updateCartQuantity();
+  const cartBtn = document.querySelectorAll(".add-to-cart-button");
 
-updateCartQuantity();
+;
+
+cartBtn.forEach((btn) => {
+  btn.addEventListener("click", () => {
+    const productId = btn.dataset.productId;
+    addtocart(productId);
+    updateCartQuantity();
+  });
+});
+});
+
 
 function renderProductsGrid(){
 
@@ -73,14 +86,6 @@ function updateCartQuantity(){
     cartQ.innerHTML = totalQuantity;
 }
 
-const addtoCart = document.querySelectorAll(".add-to-cart-button");
 
-addtoCart.forEach((btn) => {
-  btn.addEventListener("click", () => {
-    const productId = btn.dataset.productId;
-    addtocart(productId);
-    updateCartQuantity();
-  });
-});
 
 
