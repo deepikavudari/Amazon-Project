@@ -2,15 +2,16 @@ import { orders } from "../data/orders.js";
 import { products , loadProductsFetch } from "../data/products.js";
 import dayjs from "https://unpkg.com/supersimpledev@8.5.0/dayjs/esm/index.js";
 
-console.log(orders);
 
 async function renderPage (){
 await loadProductsFetch();
 const prod = products;
+
 orders.forEach(order =>{
-    const header = document.querySelector('.order-header');
+    const data = document.querySelector('.order-container')
     const dateStr = dayjs(order.orderTime).format('MMMM DD');
     const htmlText = `
+            <div class="order-header">
                 <div class="order-header-left-section js-${order.id}">
               <div class="order-date">
                 <div class="order-header-label">Order Placed:</div>
@@ -26,18 +27,10 @@ orders.forEach(order =>{
               <div class="order-header-label">Order ID:</div>
               <div>${order.id}</div>
             </div>
+            </div>
     `;
-    header.innerHTML += htmlText;
-    htmlPageForProducts(prod,order.products);
-})
-}
-
-
-
-
-function htmlPageForProducts(prod,products){
-    const container = document.querySelector('.order-details-grid');
-    products.forEach((product)=>{
+    data.innerHTML += htmlText;
+ order.products.forEach((product)=>{
 let matchingProd;
 for(let i=0;i<prod.length;i++){
     if(prod[i].id===product.productId){
@@ -77,7 +70,9 @@ const html = `
               </a>
             </div>
 `;
-container.innerHTML += html;
+data.innerHTML += html;
+});
 })
 }
+
 renderPage();
