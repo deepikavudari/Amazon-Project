@@ -33,15 +33,18 @@ async function renderTrackingPage(){
     let deliveryStatus;
     const difference = dayjs(orderInfo.estimatedDeliveryTime).diff(today,'day');
     console.log(difference);
-    if(difference<=0){
+    let text = 'Arriving on '+dateString;
+    if(difference<0){
         deliveryStatus = 'delivered';
+        text = 'Delivered on ' + dateString;
     }
-    else if(difference > 0 && difference < 3){
+    else if(difference >= 0 && difference < 3){
         deliveryStatus = 'shipped';
     }
     else{
         deliveryStatus = 'preparing';
     }
+    
     const html = `
       <div class="order-tracking">
         <a class="back-to-orders-link link-primary" href="orders.html">
@@ -49,7 +52,7 @@ async function renderTrackingPage(){
         </a>
 
         <div class="delivery-date">
-          Arriving on ${dateString}
+          ${text}
         </div>
 
         <div class="product-info">
