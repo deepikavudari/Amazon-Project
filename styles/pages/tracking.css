@@ -77,5 +77,17 @@
   height: 100%;
   background-color: green;
   border-radius: 50px;
-  width: 50%;
+  width: 0%;
+}
+
+.progress-bar-preparing{
+  width : 10%;
+}
+
+.progress-bar-shipped{
+  width : 50%;
+}
+
+.progress-bar-delivered{
+  width : 100%;
 }

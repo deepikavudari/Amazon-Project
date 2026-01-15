@@ -63,7 +63,7 @@ const html = `
             </div>
 
             <div class="product-actions">
-              <a href="tracking.html">
+              <a href="tracking.html?orderId=${order.id}&productId=${matchingProd.id}">
                 <button class="track-package-button button-secondary">
                   Track package
                 </button>
